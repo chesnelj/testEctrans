@@ -1,0 +1,36 @@
+#!/bin/bash
+
+export testFolderName=testEctrans
+testFolderAbsolutePath=$WORKDIR/${testFolderName}
+
+# remove former temporary test folder
+
+if [ -d "${testFolderAbsolutePath}" ]; then
+	echo "folder exists"
+	rm -rf ${testFolderAbsolutePath}	
+fi
+
+mkdir ${testFolderAbsolutePath}
+
+#== get sources and put them on workdir
+
+# ecbuild on develop 
+git clone https://github.com/ecmwf/ecbuild.git ${testFolderAbsolutePath}/ecbuild
+
+# fiat on main
+git clone https://github.com/ecmwf-ifs/fiat.git ${testFolderAbsolutePath}/fiat
+
+# ectrans on develop
+git clone https://github.com/ecmwf-ifs/ectrans.git ${testFolderAbsolutePath}/ectrans
+
+#== Perform compilation and job on one node
+echo "launching compilation and testing"
+sbatch compile.cjob 
+
+
+
+
+
+
+
+
