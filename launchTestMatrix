@@ -34,5 +34,5 @@ cp -r ./arch ${testFolderAbsolutePath}
 
 #== Perform compilation and job on one node
 echo "launching compilation and testing"
-sbatch compile.cjob 
+sbatch compile.cjob ${testFolderName} 
 
