@@ -8,6 +8,8 @@
 testFolderName=$1
 echo "Testing in ${testFolderName}"
 
+ARCH=$2
+
 #== copy test folder to TMPDIR and go into it
 
 cp -r $WORKDIR/${testFolderName} $TMPDIR
@@ -21,7 +23,7 @@ ulimit -s unlimited
 
 #== load compilation environment
 
-source ./arch/ecmwf/hpc2020/default/env.sh
+source $ARCH/env.sh
 
 #== Compilation
 

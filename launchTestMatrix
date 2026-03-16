@@ -3,9 +3,31 @@
 export testFolderName=testEctrans
 testFolderAbsolutePath=$WORKDIR/${testFolderName}
 
-PERFORM_CLONING=1
+function usage ()
+{
+    echo "Usage :  $0 [options] 
+    -h|help             Display this message
+    -w|without-cloning  Do not perform repositories cloning
+    -a|arch             Path to use for compilation environment architecture"
+}  
 
-if [ "$PERFORM_CLONING" -eq 1 ]; then
+CLONEREPOSITORIES=1
+ARCH=./arch/ecmwf/hpc2020/default
+
+while getopts "a:hw" opt
+do
+    case $opt in
+
+        h|help)  usage; exit 0   ;;
+        w|without-cloning) CLONEREPOSITORIES=0;;
+	a|arch) ARCH="$OPTARG";;
+        *)  echo -e "Option does not exist : $OPTARG\n" >&2
+            usage; exit 1   ;;
+
+    esac    # --- end of case ---
+done
+
+if [ "$CLONEREPOSITORIES" -eq 1 ]; then
 
   # remove former temporary test folder
   if [ -d "${testFolderAbsolutePath}" ]; then
@@ -26,13 +48,13 @@ if [ "$PERFORM_CLONING" -eq 1 ]; then
   # ectrans on develop
   git clone https://github.com/ecmwf-ifs/ectrans.git ${testFolderAbsolutePath}/ectrans
 
-  fi # perform cloning
+fi # $CLONEREPOSITORIES
 
 #== Setting up the compilation environment
 
 cp -r ./arch ${testFolderAbsolutePath}
 
 #== Perform compilation and job on one node
-echo "launching compilation and testing"
-sbatch compile.cjob ${testFolderName} 
+echo "launching compilation and testing with ${ARCH} architecture"
+sbatch compile.cjob ${testFolderName} ${ARCH} 
 
