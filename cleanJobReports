@@ -1,0 +1,27 @@
+#!/bin/bash
+
+
+function usage ()
+{
+    echo "Usage :  $0 [options] 
+
+    -h|help        Display this message
+    -f|force       force suppression without confirmation"
+}  
+
+OPTIONS=-i
+
+while getopts ":hf" opt
+do
+    case $opt in
+
+        h|help)  usage; exit 0   ;;
+        f|force) OPTIONS="-f" ;;
+        *)  echo -e "Option does not exist : $OPTARG\n" >&2
+            usage; exit 1   ;;
+
+    esac    # --- end of case ---
+done
+
+
+rm ${OPTIONS} ectransCompileJob.*
