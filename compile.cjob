@@ -2,7 +2,7 @@
 #SBATCH -p par 
 #SBATCH -J ectranCompileJob
 #SBATCH --nodes=1
-#SBATCH --time "5"
+#SBATCH --time "20"
 #SBATCH -o ectransCompileJob.o%j
 
 testFolderName=$1
