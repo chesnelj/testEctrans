@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+# gnu compiler
+./launchTest -a ./arch/ecmwf/hpc2020/gnu/default 
+# intel compiler
+./launchTest -w -a ./arch/ecmwf/hpc2020/default 
+# nvhpc + cuda
+./launchTest -w -a ./arch/ecmwf/hpc2020/nvhpc 
