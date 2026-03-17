@@ -8,7 +8,7 @@
 
 # Load modules
 
-module load cmake/3.24.1 1> /dev/null
+module load cmake/3.31.0 1> /dev/null
 module load intel/oneapi/2023.2 1> /dev/null
 module load compiler/2023.2.0 1> /dev/null
 module load mkl/2023.2.0 1> /dev/null

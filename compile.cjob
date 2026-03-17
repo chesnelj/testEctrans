@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p par 
+
 #SBATCH -J ectranCompileJob
 #SBATCH --nodes=1
 #SBATCH --time "20"
@@ -7,7 +7,6 @@
 
 testFolderName=$1
 echo "Testing in ${testFolderName}"
-
 ARCH=$2
 
 #== copy test folder to TMPDIR and go into it

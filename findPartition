@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Script to find "kinda automatically" available partitons
+
+partition="par"
+seekedPartitions=("normal256" "9654-2R-4800")
+
+
+availPartitions=$(sinfo -h -o "%P" | tr ',' '\n' | sort -u)
+
+is_partition_available() {
+    local partition_name="$1"
+    # Check is a partition is in th list of available ones
+    if echo "$availPartitions" | grep -q ${partition_name}; then
+        return 0  # Partition available 
+    else
+        return 1  # Partition not available 
+    fi
+}
+
+
+for p in "${seekedPartitions[@]}"; do
+    if is_partition_available "$p"; then
+        partition="$p"
+        break
+    fi
+done
+
+# return selected partition 
+echo $partition
+
