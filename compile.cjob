@@ -26,10 +26,30 @@ source $ARCH/env.sh
 
 #== Compilation
 
-cmake -S fiat -B fiat/build
+echo compiling fiat 
+cmake -S fiat -B fiat/build -DCMAKE_Fortran_FLAGS="-fPIC" -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 cmake --build fiat/build -j 8 
 
+if [ -d $FFTW_ARCHIVE_NAME ]; then
+  echo compiling fftw
 
+  # double precision
+  cmake -S ${FFTW_ARCHIVE_NAME} -B ${FFTW_ARCHIVE_NAME}/build -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=${FFTW_ARCHIVE_NAME}/install
+  cmake --build ${FFTW_ARCHIVE_NAME}/build -j 8
+  cmake --install ${FFTW_ARCHIVE_NAME}/build
+
+  # simple precision
+  cmake -S ${FFTW_ARCHIVE_NAME} -B ${FFTW_ARCHIVE_NAME}/build -DBUILD_SHARED_LIBS=ON -DENABLE_FLOAT=ON -DCMAKE_INSTALL_PREFIX=${FFTW_ARCHIVE_NAME}/install
+  cmake --build ${FFTW_ARCHIVE_NAME}/build -j 8
+  cmake --install ${FFTW_ARCHIVE_NAME}/build
+
+  # useful import for ectrans
+  export FFTW_ROOT=$TMPDIR/${testFolderName}/${FFTW_ARCHIVE_NAME}/install
+  echo FFTW_ROOT=${FFTW_ROOT}
+
+fi
+
+echo compiling ectrans
 cmake -S ectrans -B ectrans/build -Dfiat_ROOT=$PWD/fiat/build 
 cmake --build ectrans/build -j 8
 

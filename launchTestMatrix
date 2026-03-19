@@ -12,7 +12,7 @@ fi
 
 if [ "$1" == "amd" ]; then
  # afar compiler
- ./launchTest -c $HOME/cloneDir -a ./arch/amd/default 
+ ./launchTest -c $HOME/cloneDir -a ./arch/amd/default  -i
 fi
 
 

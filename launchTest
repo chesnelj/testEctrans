@@ -10,9 +10,11 @@ function usage ()
 }  
 
 CLONEREPOSITORIES=1
+INSTALLFFTW=0
+export FFTW_ARCHIVE_NAME=fftw-3.3.10
 ARCH=./arch/ecmwf/hpc2020/default
 
-while getopts "a:c:hw" opt
+while getopts "a:c:hwi" opt
 do
     case $opt in
 
@@ -20,6 +22,7 @@ do
         w|without-cloning) CLONEREPOSITORIES=0;;
 	a|arch) ARCH="$OPTARG";;
 	c|clonedir) export WORKDIR="$OPTARG";;
+	i|install-fftw) INSTALLFFTW=1 ;;
         *)  echo -e "option error : $OPTARG\n" >&2
             usage; exit 1   ;;
 
@@ -50,6 +53,16 @@ if [ "$CLONEREPOSITORIES" -eq 1 ]; then
   # ectrans on develop
   git clone https://github.com/ecmwf-ifs/ectrans.git ${testFolderAbsolutePath}/ectrans
 
+
+  # install fftw
+  if [ "$INSTALLFFTW" -eq 1 ]; then
+	  cd ${testFolderAbsolutePath} 
+	  wget https://www.fftw.org/${FFTW_ARCHIVE_NAME}.tar.gz
+	  tar -zvxf ${FFTW_ARCHIVE_NAME}.tar.gz
+	  rm -f ${FFTW_ARCHIVE_NAME}.tar.gz
+	  cd -
+  fi
+
 fi # $CLONEREPOSITORIES
 
 #== Setting up the compilation environment
@@ -59,6 +72,6 @@ cp -r ./arch ${testFolderAbsolutePath}
 #== Perform compilation and job on one node
 PARTITION=$(./findPartition)
 echo "launching compilation and testing with ${ARCH} architecture using ${PARTITION} partition"
-#sbatch --partition=${PARTITION} compile.cjob ${testFolderName} ${ARCH} 
-#compile.cjob ${testFolderName} ${ARCH} 
+sbatch --partition=${PARTITION} compile.cjob ${testFolderName} ${ARCH} 
+#bash compile.cjob ${testFolderName} ${ARCH} 
 
