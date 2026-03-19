@@ -1,9 +1,19 @@
 #!/bin/bash
 
+# ecmwf
+if [ "$1" == "ecmwf" ]; then
+ # gnu compiler
+ ./launchTest -a ./arch/ecmwf/hpc2020/gnu/default 
+ # intel compiler
+ ./launchTest -w -a ./arch/ecmwf/hpc2020/default 
+ # nvhpc + cuda
+ ./launchTest -w -a ./arch/ecmwf/hpc2020/nvhpc 
+fi
 
-# gnu compiler
-./launchTest -a ./arch/ecmwf/hpc2020/gnu/default 
-# intel compiler
-./launchTest -w -a ./arch/ecmwf/hpc2020/default 
-# nvhpc + cuda
-./launchTest -w -a ./arch/ecmwf/hpc2020/nvhpc 
+if [ "$1" == "amd" ]; then
+ # afar compiler
+ ./launchTest -c $HOME/cloneDir -a ./arch/amd/default 
+fi
+
+
+

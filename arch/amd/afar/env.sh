@@ -2,7 +2,9 @@ source /home/afar/modules/use.sh
 module load rocm
 module load afar/22.3.0
 module load cmake/3.31.7
-module load openmpi
+module load openmpi/afar-22.3.0/5.0.9
+module unload -f openmpi-rt/ucx
+module load openmpi-rt/sm
 
 export FC=flang
 export F90=flang

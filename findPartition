@@ -3,7 +3,7 @@
 # Script to find "kinda automatically" available partitons
 
 partition="par"
-seekedPartitions=("normal256" "9654-2R-4800")
+seekedPartitions=("normal256" "9654-2R-4800" "MI300X")
 
 
 availPartitions=$(sinfo -h -o "%P" | tr ',' '\n' | sort -u)

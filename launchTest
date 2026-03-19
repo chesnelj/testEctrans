@@ -1,31 +1,33 @@
 #!/bin/bash
 
-export testFolderName=testEctrans
-testFolderAbsolutePath=$WORKDIR/${testFolderName}
-
 function usage ()
 {
     echo "Usage :  $0 [options] 
     -h|help             Display this message
     -w|without-cloning  Do not perform repositories cloning
-    -a|arch             Path to use for compilation environment architecture"
+    -a|arch             Path to use for compilation environment architecture
+    -c|clonedir         Path to a folder to clone repositories default is \$WORKDIR if defined" 
 }  
 
 CLONEREPOSITORIES=1
 ARCH=./arch/ecmwf/hpc2020/default
 
-while getopts "a:hw" opt
+while getopts "a:c:hw" opt
 do
     case $opt in
 
         h|help)  usage; exit 0   ;;
         w|without-cloning) CLONEREPOSITORIES=0;;
 	a|arch) ARCH="$OPTARG";;
-        *)  echo -e "Option does not exist : $OPTARG\n" >&2
+	c|clonedir) export WORKDIR="$OPTARG";;
+        *)  echo -e "option error : $OPTARG\n" >&2
             usage; exit 1   ;;
 
     esac    # --- end of case ---
 done
+
+export testFolderName=testEctrans
+testFolderAbsolutePath=$WORKDIR/${testFolderName}
 
 if [ "$CLONEREPOSITORIES" -eq 1 ]; then
 
@@ -57,5 +59,6 @@ cp -r ./arch ${testFolderAbsolutePath}
 #== Perform compilation and job on one node
 PARTITION=$(./findPartition)
 echo "launching compilation and testing with ${ARCH} architecture using ${PARTITION} partition"
-sbatch --partition=${PARTITION} compile.cjob ${testFolderName} ${ARCH} 
+#sbatch --partition=${PARTITION} compile.cjob ${testFolderName} ${ARCH} 
+#compile.cjob ${testFolderName} ${ARCH} 
 
