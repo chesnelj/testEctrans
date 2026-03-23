@@ -6,7 +6,8 @@ function usage ()
     -h|help             Display this message
     -w|without-cloning  Do not perform repositories cloning
     -a|arch             Path to use for compilation environment architecture
-    -c|clonedir         Path to a folder to clone repositories default is \$WORKDIR if defined" 
+    -c|clonedir         Path to a folder to clone repositories default is \$WORKDIR if defined
+    -i|install-fftw     Download and install fftw from repo"
 }  
 
 CLONEREPOSITORIES=1

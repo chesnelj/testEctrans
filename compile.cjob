@@ -2,7 +2,8 @@
 
 #SBATCH -J ectranCompileJob
 #SBATCH --nodes=1
-#SBATCH --time "20"
+#SBATCH --time "60"
+#SBATCH --ntasks-per-node=128
 #SBATCH -o ectransCompileJob.o%j
 
 testFolderName=$1
@@ -55,4 +56,4 @@ cmake --build ectrans/build -j 8
 
 #== Tests
 cd ./ectrans/build
-ctest -j 128
+ctest -j $SLURM_NTASKS_PER_NODE 
