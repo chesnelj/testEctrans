@@ -26,7 +26,7 @@ source $ARCH/env.sh
 
 #== Compilation
 
-cmake -S fiat -B fiat/build
+cmake -S fiat -B fiat/build -DCMAKE_Fortran_FLAGS="-fPIC" -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 cmake --build fiat/build -j 8 
 
 
