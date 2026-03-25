@@ -7,10 +7,10 @@ if [ "$1" == "ecmwf" ]; then
 	#./launchTest -a ./arch/ecmwf/hpc2020/gnu/default 
 	# intel compiler
 	#./launchTest -a ./arch/ecmwf/hpc2020/default 
-	# nvhpc + cuda
-	#./launchTest -a ./arch/ecmwf/hpc2020/nvhpc 
+	# nvhpc + cuda on GPU
+	./launchTest -a ./arch/ecmwf/hpc2020/nvhpc/gpu-cuda 
 	# amd 
-	./launchTest -a ./arch/ecmwf/hpc2020/amd/afar/22.3.0/ 
+	#./launchTest -w -a ./arch/ecmwf/hpc2020/amd/afar/22.3.0/ 
 fi
 
 

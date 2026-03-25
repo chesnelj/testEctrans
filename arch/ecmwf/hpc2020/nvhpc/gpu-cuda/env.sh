@@ -19,6 +19,9 @@ module_purge() {
 # Unload all modules to be certain
 [[ ${IFS_RUNTIME_ENV:-unset} == "unset" ]] && module_purge
 
+export PARTITION_TO_USE=gpu_debug
+export QOS_TO_USE=gpu_debug
+
 # Load modules
 module_load prgenv/nvidia
 module_load nvidia/24.5

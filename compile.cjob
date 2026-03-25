@@ -1,8 +1,15 @@
 #!/bin/bash
 
+#
+#SBATCH --ntasks-per-node 8
+#SBATCH --gpus-per-node=4 
+#SBATCH --gres=gpu:1
+#SBATCH --partition=gpu_debug
+#SBATCH --mem=32000
+#SBATCH --qos=dg
 #SBATCH -J ectranCompileJob
 #SBATCH --nodes=1
-#SBATCH --time "20"
+#SBATCH --time "30"
 #SBATCH -o ectransCompileJob.o%j
 
 testFolderName=$1
@@ -30,9 +37,9 @@ cmake -S fiat -B fiat/build -DCMAKE_Fortran_FLAGS="-fPIC" -DCMAKE_POSITION_INDEP
 cmake --build fiat/build -j 8 
 
 
-cmake -S ectrans -B ectrans/build -Dfiat_ROOT=$PWD/fiat/build 
+cmake -S ectrans -B ectrans/build -Dfiat_ROOT=$PWD/fiat/build -DECTRANS_ENABLE_GPU=ON -DENABLE_ACC=ON
 cmake --build ectrans/build -j 8
 
 #== Tests
 cd ./ectrans/build
-ctest -j 128
+ctest -R "gpu"

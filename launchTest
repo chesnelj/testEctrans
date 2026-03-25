@@ -55,7 +55,8 @@ fi # $CLONEREPOSITORIES
 cp -r ./arch ${testFolderAbsolutePath}
 
 #== Perform compilation and job on one node
-PARTITION=$(./findPartition)
-echo "launching compilation and testing with ${ARCH} architecture using ${PARTITION} partition"
-sbatch --partition=${PARTITION} compile.cjob ${testFolderName} ${ARCH} 
+#PARTITION=$(./findPartition)
+#echo "launching compilation and testing with ${ARCH} architecture using ${PARTITION} partition"
+#sbatch --partition=${PARTITION} compile.cjob ${testFolderName} ${ARCH} 
+sbatch compile.cjob ${testFolderName} ${ARCH} 
 
