@@ -42,4 +42,12 @@ cmake --build ectrans/build -j 8
 
 #== Tests
 cd ./ectrans/build
-ctest -R "gpu"
+# all GPU tests
+#ctest -R "gpu"
+# specific GPU test
+#ctest -R "ectrans_test_trans_api_dir_trans_call_mode_2_wind_1_gpu_sp_mpi1xomp1"
+# with profiling
+nsys profile --trace=cuda,nvtx,mpi -o profil_mpi_cuda mpiexec -n 1 $TMPDIR/testEctrans/ectrans/build/bin/dir_trans_test_suite_gpu_sp ectrans_test_trans_api_dir_trans_call_mode_2_wind_1
+cp profil_mpi_cuda.nsys-rep $WORKDIR/${testFolderName}
+
+
