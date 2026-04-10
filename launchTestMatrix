@@ -12,7 +12,10 @@ fi
 
 if [ "$1" == "amd" ]; then
  # afar compiler
- ./launchTest -c $HOME/cloneDir -a ./arch/amd/default  -i
+ # cpu
+ #./launchTest -c $HOME/cloneDir -a ./arch/amd/default  -i
+ # gpu
+ ./launchTest -c $HOME/cloneDir -a ./arch/amd/afar-gpu  -i
 fi
 
 

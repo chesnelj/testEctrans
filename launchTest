@@ -73,6 +73,6 @@ cp -r ./arch ${testFolderAbsolutePath}
 #== Perform compilation and job on one node
 PARTITION=$(./findPartition)
 echo "launching compilation and testing with ${ARCH} architecture using ${PARTITION} partition"
-sbatch --partition=${PARTITION} compile.cjob ${testFolderName} ${ARCH} 
-#bash compile.cjob ${testFolderName} ${ARCH} 
+#sbatch --partition=${PARTITION} compile.cjob ${testFolderName} ${ARCH} 
+bash compile.cjob ${testFolderName} ${ARCH} 
 

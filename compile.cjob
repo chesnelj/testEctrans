@@ -51,9 +51,10 @@ if [ -d $FFTW_ARCHIVE_NAME ]; then
 fi
 
 echo compiling ectrans
-cmake -S ectrans -B ectrans/build -Dfiat_ROOT=$PWD/fiat/build 
+cmake -S ectrans -B ectrans/build -Dfiat_ROOT=$PWD/fiat/build -DECTRANS_ENABLE_GPU=ON -DENABLE_HIP=ON -DENABLE_OMP=ON 
 cmake --build ectrans/build -j 8
 
 #== Tests
-cd ./ectrans/build
-ctest -j $SLURM_NTASKS_PER_NODE 
+#cd ./ectrans/build
+#ctest -j $SLURM_NTASKS_PER_NODE -R "ectrans_test_trans_api_dir_trans_call_mode_2_wind_1_cpu_dp_mpi2xomp8"
+#ctest -R "gpu"
