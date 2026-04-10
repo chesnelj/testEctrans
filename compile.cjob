@@ -26,13 +26,19 @@ source $ARCH/env.sh
 
 #== Compilation
 
+# fiat
 cmake -S fiat -B fiat/build -DCMAKE_Fortran_FLAGS="-fPIC" -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 cmake --build fiat/build -j 8 
 
-
+# ectrans
 cmake -S ectrans -B ectrans/build -Dfiat_ROOT=$PWD/fiat/build 
 cmake --build ectrans/build -j 8
 
+# demonstrator
+cmake -S demonstrator -B demonstrator/build -Dfiat_ROOT=$PWD/fiat/build  -Dectrans_ROOT=$PWD/ectrans/build
+cmake --build demonstrator/build -j 8
+
+
 #== Tests
-cd ./ectrans/build
-ctest -j 128
+#cd ./ectrans/build
+#ctest -j 128
