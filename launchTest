@@ -53,6 +53,7 @@ fi # $CLONEREPOSITORIES
 #== Setting up the compilation environment
 
 cp -r ./arch ${testFolderAbsolutePath}
+cp -r ./demonstrator ${testFolderAbsolutePath}
 
 #== Perform compilation and job on one node
 #PARTITION=$(./findPartition)
